@@ -15,6 +15,3 @@ class TestCreationOrder:
         order = requests.post(f'{Url.MAIN_URL}{Url.CREATE_ORDER}', json=order_data)
         assert order.status_code == 201 and Flags.SUCCESSFUL_ORDER_CREATION in order.json()
         requests.put(f'{Url.MAIN_URL}{Url.ORDER_CANCEL}{order.json()['track']}')
-
-
-

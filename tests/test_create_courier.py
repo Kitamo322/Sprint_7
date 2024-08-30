@@ -7,10 +7,9 @@ from data import ResponseBody, Url, DataForRegistration
 class TestsCreateNewCourier:
 
     @allure.title('Test Successful new courier creation. Handle:/api/v1/courier')
-    def test_creation_courier_success(self, create_courier):
-        response_status_code = create_courier[1]
-        response_body_text = create_courier[2]
-        assert response_status_code == 201 and (response_body_text == ResponseBody.COURIER_CREATION_SUCCESS)
+    def test_creation_courier_success(self, generate_courier_data):
+        registration = requests.post(f'{Url.MAIN_URL}{Url.CREATE_COURIER}', json=generate_courier_data[0])
+        assert registration.status_code == 201 and (registration.json() == ResponseBody.COURIER_CREATION_SUCCESS)
 
     @allure.title('Test Registration of two Identical Couriers Error. Handle:/api/v1/courier')
     def test_creation_courier_clone_error(self, create_courier):
